@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package tasktracker;
+
+option go_package = "task-tracker/tasktracker";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+service TaskService {
+  rpc CreateTask (CreateTaskRequest) returns (CreateTaskResponse);
+  rpc GetTasks (GetRequest) returns (GetResponse);
+  rpc DeleteTask (DeleteRequest) returns (google.protobuf.Empty);
+}
+
+message CreateTaskRequest {
+  string title = 1;
+  string description = 2;
+  TaskStatus status = 3;
+}
+
+message CreateTaskResponse {
+  uint64 task_id = 1;
+}
+
+message GetRequest {
+  uint64 task_id = 1;
+}
+
+message GetResponse {
+  Task tasks = 1;
+}
+
+message DeleteRequest {
+  uint64 task_id = 1;
+}
+
+message Task {
+  uint64 task_id = 1;
+  string title = 2 ;
+  string description = 3;
+  TaskStatus status = 4;
+  google.protobuf.Timestamp create_date = 5;
+}
+
+enum TaskStatus {
+  STATUS_UNSPECIFIED = 0;
+  STATUS_STOPPED = 1;
+  STATUS_ACTIVE = 2;
+  STATUS_NOT_ACTIVE = 3;
+}
