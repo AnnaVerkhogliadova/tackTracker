@@ -87,7 +87,7 @@ func (d *dbDriver) Delete(ctx context.Context, taskId uint64) error {
 
 	defer row.Close()
 	if err != nil {
-		return fmt.Errorf("error deleting Sip: %w", err)
+		return fmt.Errorf("error deleting Task: %w", err)
 	}
 
 	return nil
