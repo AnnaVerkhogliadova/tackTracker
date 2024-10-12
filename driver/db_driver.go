@@ -6,8 +6,8 @@ import (
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
-	//"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/rs/zerolog"
+	"taskTracker/errors"
 	"taskTracker/model"
 )
 
@@ -73,7 +73,7 @@ func (d *dbDriver) Get(ctx context.Context, taskId uint64) (*model.Task, error) 
 	}
 
 	if len(results) == 0 {
-		return nil, fmt.Errorf("not found: %w", err)
+		return nil, errors.NewErrTaskNotFound(taskId)
 	}
 
 	return &results[0], nil
