@@ -20,4 +20,10 @@ select
 	where
 		task_id = $1
 `
+	queryGetList = `
+	select 
+		 tasks.task_id, tasks.title, tasks.description, tasks.status, tasks.create_date from tasks.tasks
+	where
+		status = coalesce($1, status) 
+`
 )

@@ -61,3 +61,15 @@ func (t taskController) Delete(ctx context.Context, taskId uint64) error {
 
 	return nil
 }
+
+func (t taskController) GetList(ctx context.Context, status *uint64) ([]*model.Task, error) {
+	tasks, err := t.taskDriver.GetList(
+		ctx,
+		status)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return tasks, nil
+}

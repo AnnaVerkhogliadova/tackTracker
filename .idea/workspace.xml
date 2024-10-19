@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fec1ad29-8d2c-4a01-9503-ed1d178327e5" name="Changes" comment="fix gitignore">
-      <change afterPath="$PROJECT_DIR$/errors/err_task_id_not_found.go" afterDir="false" />
+    <list default="true" id="fec1ad29-8d2c-4a01-9503-ed1d178327e5" name="Changes" comment="fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/i_task.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/i_task.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/driver/db_driver.go" beforeDir="false" afterPath="$PROJECT_DIR$/driver/db_driver.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/driver/i_driver.go" beforeDir="false" afterPath="$PROJECT_DIR$/driver/i_driver.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/driver/queries.go" beforeDir="false" afterPath="$PROJECT_DIR$/driver/queries.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task-tracker/tasktracker/task.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/task-tracker/tasktracker/task.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task-tracker/tasktracker/task.proto" beforeDir="false" afterPath="$PROJECT_DIR$/task-tracker/tasktracker/task.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task-tracker/tasktracker/task_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/task-tracker/tasktracker/task_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trasnsport/task/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/trasnsport/task/api.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,16 +50,16 @@
     &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/annaverhogladova/GolandProjects/homeProject/taskTracker&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/annaverhogladova/GolandProjects/taskTracker&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/trasnsport/task" />
       <recent name="$PROJECT_DIR$/task-tracker/tasktracker" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/trasnsport/task" />
       <recent name="$PROJECT_DIR$/model" />
     </key>
   </component>
@@ -87,6 +94,10 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
+  </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
   </component>
@@ -99,29 +110,9 @@
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/driver/db_driver.go</url>
-          <line>29</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/driver/db_driver.go</url>
-          <line>40</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/driver/queries.go</url>
           <line>12</line>
           <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/driver/db_driver.go</url>
-          <line>65</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/driver/db_driver.go</url>
-          <line>60</line>
-          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

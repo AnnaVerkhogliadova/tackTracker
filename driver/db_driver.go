@@ -58,7 +58,7 @@ func (d *dbDriver) Get(ctx context.Context, taskId uint64) (*model.Task, error) 
 		return nil, fmt.Errorf("error creating task: %w", err)
 	}
 
-	rows, err := tx.Query(
+	row, err := tx.Query(
 		ctx,
 		queryGet,
 		taskId)
@@ -67,7 +67,7 @@ func (d *dbDriver) Get(ctx context.Context, taskId uint64) (*model.Task, error) 
 		return nil, fmt.Errorf("error Get in db: %w", err)
 	}
 
-	results, err := pgx.CollectRows(rows, pgx.RowToStructByName[model.Task])
+	results, err := pgx.CollectRows(row, pgx.RowToStructByName[model.Task])
 	if err != nil {
 		return nil, fmt.Errorf("errorCollectRows for Get: %w", err)
 	}
@@ -91,4 +91,28 @@ func (d *dbDriver) Delete(ctx context.Context, taskId uint64) error {
 	}
 
 	return nil
+}
+
+func (d *dbDriver) GetList(ctx context.Context, status *uint64) ([]*model.Task, error) {
+	row, err := d.rwdb.Query(
+		ctx,
+		queryGetList,
+		status)
+
+	if err != nil {
+		return nil, fmt.Errorf("error Get in db: %w", err)
+	}
+
+	results, err := pgx.CollectRows(row, pgx.RowToStructByName[model.Task])
+	if err != nil {
+		return nil, fmt.Errorf("errorCollectRows for GetList: %w", err)
+	}
+
+	tasks := make([]*model.Task, len(results))
+	for i := range results {
+		task := results[i]
+		tasks[i] = &task
+	}
+
+	return tasks, nil
 }
