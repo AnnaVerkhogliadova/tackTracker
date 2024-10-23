@@ -38,6 +38,19 @@ func (t taskController) Create(ctx context.Context, task *model.Task) (uint64, e
 	return taskId, nil
 }
 
+func (t taskController) SetStatus(ctx context.Context, taskId uint64, status *uint64) error {
+	err := t.taskDriver.SetStatus(
+		ctx,
+		taskId,
+		status)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (t taskController) Get(ctx context.Context, taskId uint64) (*model.Task, error) {
 	task, err := t.taskDriver.Get(
 		ctx,

@@ -9,6 +9,7 @@ import "google/protobuf/empty.proto";
 
 service TaskService {
   rpc CreateTask (CreateTaskRequest) returns (CreateTaskResponse);
+  rpc SetStatus (SetStatusRequest) returns (google.protobuf.Empty);
   rpc GetTasks (GetRequest) returns (GetResponse);
   rpc DeleteTask (DeleteRequest) returns (google.protobuf.Empty);
   rpc GetListTasks (GetListRequest) returns (GetListResponse);
@@ -22,6 +23,11 @@ message CreateTaskRequest {
 
 message CreateTaskResponse {
   uint64 task_id = 1;
+}
+
+message SetStatusRequest {
+  uint64 task_id = 1;
+  TaskStatus status = 2;
 }
 
 message GetRequest {

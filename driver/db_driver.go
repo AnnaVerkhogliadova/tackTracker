@@ -52,6 +52,20 @@ func (d *dbDriver) Create(ctx context.Context, task *model.Task) (uint64, error)
 	return taskId, nil
 }
 
+func (d *dbDriver) SetStatus(ctx context.Context, taskId uint64, status *uint64) error {
+	row, err := d.rwdb.Query(
+		ctx,
+		querySetStatus,
+		taskId, status)
+
+	defer row.Close()
+	if err != nil {
+		return fmt.Errorf("error set status: %w", err)
+	}
+
+	return nil
+}
+
 func (d *dbDriver) Get(ctx context.Context, taskId uint64) (*model.Task, error) {
 	tx, err := d.rwdb.BeginTx(ctx, pgx.TxOptions{})
 	if err != nil {

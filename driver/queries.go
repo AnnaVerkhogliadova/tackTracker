@@ -2,28 +2,34 @@ package driver
 
 const (
 	queryCreateTask = `
-	insert 
-	into tasks.tasks
+	INSERT 
+	INTO tasks.tasks
 	    (title, description, status)
-	values
+	VALUES 
 	    ($1, $2, $3)
 	returning task_id;`
 
 	queryGet = `
-select 
-    tasks.task_id, tasks.title, tasks.description, tasks.status, tasks.create_date from tasks.tasks
-	where task_id = $1;
+	SELECT 
+    tasks.task_id, tasks.title, tasks.description, tasks.status, tasks.create_date FROM tasks.tasks
+	WHERE task_id = $1;
 `
+	querySetStatus = `
+
+	UPDATE tasks.tasks
+		SET status = $2 WHERE task_id = $1
+`
+
 	queryDelete = `
-	delete 
-		from tasks.tasks
-	where
+	DELETE 
+		FROM tasks.tasks
+	WHERE
 		task_id = $1
 `
 	queryGetList = `
-	select 
-		 tasks.task_id, tasks.title, tasks.description, tasks.status, tasks.create_date from tasks.tasks
-	where
+	SELECT 
+		 tasks.task_id, tasks.title, tasks.description, tasks.status, tasks.create_date FROM tasks.tasks
+	WHERE
 		status = coalesce($1, status) 
 `
 )

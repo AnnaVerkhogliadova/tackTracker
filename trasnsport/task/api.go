@@ -32,6 +32,22 @@ func (h *Handler) CreateTask(ctx context.Context, req *pb.CreateTaskRequest) (*p
 	}, nil
 }
 
+func (h *Handler) SetStatus(ctx context.Context, req *pb.SetStatusRequest) (*emptypb.Empty, error) {
+	var status *uint64
+	if req.Status != 0 {
+		ft := uint64(req.Status.Number())
+		status = &ft
+	}
+
+	err := h.Controller.SetStatus(ctx, req.TaskId, status)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &emptypb.Empty{}, nil
+}
+
 func (h *Handler) GetTasks(ctx context.Context, req *pb.GetRequest) (*pb.GetResponse, error) {
 	task, err := h.Controller.Get(ctx, req.TaskId)
 
@@ -73,7 +89,12 @@ func (h *Handler) DeleteTask(ctx context.Context, req *pb.DeleteRequest) (*empty
 }
 
 func (h *Handler) GetListTasks(ctx context.Context, req *pb.GetListRequest) (*pb.GetListResponse, error) {
-	status := mapTaskStatusToUint64(req.Status)
+	var status *uint64
+	if req.Status != nil {
+		ft := uint64(req.Status.Number())
+		status = &ft
+	}
+
 	tasks, err := h.Controller.GetList(ctx, status)
 
 	if err != nil {
@@ -105,24 +126,4 @@ func (h *Handler) GetListTasks(ctx context.Context, req *pb.GetListRequest) (*pb
 	return &pb.GetListResponse{
 		Tasks: result,
 	}, nil
-}
-
-func mapTaskStatusToUint64(status *pb.TaskStatus) *uint64 {
-	if status == nil {
-		return nil
-	}
-
-	var mappedValue uint64
-	switch *status {
-	case pb.TaskStatus_STATUS_UNSPECIFIED:
-		mappedValue = 0
-	case pb.TaskStatus_STATUS_STOPPED:
-		mappedValue = 1
-	case pb.TaskStatus_STATUS_ACTIVE:
-		mappedValue = 2
-	case pb.TaskStatus_STATUS_NOT_ACTIVE:
-		mappedValue = 3
-	}
-
-	return &mappedValue
 }
