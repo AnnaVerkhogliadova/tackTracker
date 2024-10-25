@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
-	"log"
 	"net"
 	task_controller "taskTracker/controller"
 	"taskTracker/database"
@@ -14,20 +14,21 @@ import (
 
 func main() {
 	rw := database.Connect()
+	log.Info().Msg("connection to database")
 
 	taskDriver, err := driver.NewDbDriver(rw, nil)
 	if err != nil {
-		log.Fatalf("Failed to create db driver: %v", err)
+		log.Fatal().Err(err).Msg("Failed to create db driver")
 	}
 
 	taskCtrl, err := task_controller.NewController(taskDriver)
 	if err != nil {
-		log.Fatalf("Failed to create task controller: %v", err)
+		log.Fatal().Err(err).Msg("Failed to create task controller")
 	}
 
 	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
-		log.Fatalf("Failed to listen: %v", err)
+		log.Fatal().Err(err).Msg("Failed to listen")
 	}
 
 	s := grpc.NewServer()
@@ -38,6 +39,6 @@ func main() {
 
 	fmt.Println("gRPC server listening on port 50051...")
 	if err := s.Serve(lis); err != nil {
-		log.Fatalf("Failed to serve: %v", err)
+		log.Fatal().Err(err).Msg("Failed to serve")
 	}
 }

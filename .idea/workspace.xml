@@ -4,17 +4,15 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fec1ad29-8d2c-4a01-9503-ed1d178327e5" name="Changes" comment="add GetList (with status filter)">
+    <list default="true" id="fec1ad29-8d2c-4a01-9503-ed1d178327e5" name="Changes" comment="add logs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/i_task.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/i_task.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/driver/db_driver.go" beforeDir="false" afterPath="$PROJECT_DIR$/driver/db_driver.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/driver/i_driver.go" beforeDir="false" afterPath="$PROJECT_DIR$/driver/i_driver.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/driver/queries.go" beforeDir="false" afterPath="$PROJECT_DIR$/driver/queries.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-tracker/tasktracker/task.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/task-tracker/tasktracker/task.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-tracker/tasktracker/task.proto" beforeDir="false" afterPath="$PROJECT_DIR$/task-tracker/tasktracker/task.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-tracker/tasktracker/task_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/task-tracker/tasktracker/task_grpc.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trasnsport/task/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/trasnsport/task/api.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/model.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/model.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +95,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix" />
     <MESSAGE value="add GetList (with status filter)" />
-    <option name="LAST_COMMIT_MESSAGE" value="add GetList (with status filter)" />
+    <MESSAGE value="add SetStatus" />
+    <MESSAGE value="add logs" />
+    <option name="LAST_COMMIT_MESSAGE" value="add logs" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
@@ -107,7 +107,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/controller/controller.go</url>
-          <line>28</line>
+          <line>21</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
@@ -117,7 +117,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/driver/db_driver.go</url>
-          <line>119</line>
+          <line>126</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">

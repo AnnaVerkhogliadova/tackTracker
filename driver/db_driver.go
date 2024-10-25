@@ -26,10 +26,10 @@ func NewDbDriver(rwdb *pgxpool.Pool, rdb *pgxpool.Pool) (ITasks, error) {
 	}, nil
 }
 
-func (d *dbDriver) Create(ctx context.Context, task *model.Task) (uint64, error) {
+func (d *dbDriver) Create(ctx context.Context, task *model.Task) (*model.Task, error) {
 	tx, err := d.rwdb.BeginTx(ctx, pgx.TxOptions{})
 	if err != nil {
-		return 0, fmt.Errorf("error creating task: %w", err)
+		return nil, fmt.Errorf("error creating task: %w", err)
 	}
 
 	var taskId uint64
@@ -38,18 +38,25 @@ func (d *dbDriver) Create(ctx context.Context, task *model.Task) (uint64, error)
 		task.Title, task.Description, task.Status,
 	).Scan(&taskId)
 
+	task = &model.Task{
+		ID:          taskId,
+		Title:       task.Title,
+		Description: task.Description,
+		Status:      task.Status,
+		CreatedAt:   task.CreatedAt}
+
 	if err != nil {
 		zerolog.Ctx(ctx).Error().Err(err).Msg("error executing query")
 		tx.Rollback(ctx)
-		return 0, fmt.Errorf("error creating task in db: %w", err)
+		return nil, fmt.Errorf("error creating task in db: %w", err)
 	}
 
 	if err := tx.Commit(ctx); err != nil {
 		tx.Rollback(ctx)
-		return 0, fmt.Errorf("error committing transaction: %w", err)
+		return nil, fmt.Errorf("error committing transaction: %w", err)
 	}
 
-	return taskId, nil
+	return task, nil
 }
 
 func (d *dbDriver) SetStatus(ctx context.Context, taskId uint64, status *uint64) error {

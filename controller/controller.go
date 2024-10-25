@@ -3,7 +3,7 @@ package controller
 import (
 	"context"
 	"fmt"
-	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 	"taskTracker/driver"
 	"taskTracker/model"
 )
@@ -12,30 +12,21 @@ type taskController struct {
 	taskDriver driver.ITasks
 }
 
-func NewController(
-	taskDriver driver.ITasks,
-) (ITaskController, error) {
+func NewController(taskDriver driver.ITasks) (ITaskController, error) {
 	return &taskController{
 		taskDriver: taskDriver,
 	}, nil
 }
 
 func (t taskController) Create(ctx context.Context, task *model.Task) (uint64, error) {
-	lgr := zerolog.Ctx(ctx).With().
-		Dict("request", zerolog.Dict().
-			Interface("task", task)).
-		Logger()
-
-	taskId, err := t.taskDriver.Create(ctx, task)
+	createdTask, err := t.taskDriver.Create(ctx, task)
 	if err != nil {
-		lgr.Error().
-			Err(err).
-			Msg("error creating Task")
-
 		return 0, fmt.Errorf("error creating task: %w", err)
 	}
 
-	return taskId, nil
+	logger := log.With().Object("task", createdTask).Logger()
+	logger.Info().Msg("Create result")
+	return createdTask.ID, nil
 }
 
 func (t taskController) SetStatus(ctx context.Context, taskId uint64, status *uint64) error {
@@ -48,6 +39,8 @@ func (t taskController) SetStatus(ctx context.Context, taskId uint64, status *ui
 		return err
 	}
 
+	logger := log.With().Int("status", int(*status)).Logger()
+	logger.Info().Msg("SetStatus result")
 	return nil
 }
 
@@ -60,6 +53,7 @@ func (t taskController) Get(ctx context.Context, taskId uint64) (*model.Task, er
 		return nil, err
 	}
 
+	log.Info().Msg("Get result")
 	return task, nil
 }
 
@@ -72,6 +66,8 @@ func (t taskController) Delete(ctx context.Context, taskId uint64) error {
 		return err
 	}
 
+	logger := log.With().Int("task_id", int(taskId)).Logger()
+	logger.Info().Msg("Delete result")
 	return nil
 }
 
@@ -84,5 +80,6 @@ func (t taskController) GetList(ctx context.Context, status *uint64) ([]*model.T
 		return nil, err
 	}
 
+	log.Info().Msg("GetList result")
 	return tasks, nil
 }
