@@ -127,3 +127,21 @@ func (h *Handler) GetListTasks(ctx context.Context, req *pb.GetListRequest) (*pb
 		Tasks: result,
 	}, nil
 }
+
+func (h *Handler) AddSubTusk(ctx context.Context, req *pb.AddSubTuskRequest) (*pb.AddSubTuskResponse, error) {
+	task := &model.SubTask{
+		TaskID:      req.TaskId,
+		Title:       req.Title,
+		Description: req.Description,
+		Status:      uint64(req.Status),
+	}
+
+	taskId, err := h.Controller.CreateSubTask(ctx, task)
+	if err != nil {
+		return nil, err
+	}
+
+	return &pb.AddSubTuskResponse{
+		SubTaskId: taskId,
+	}, nil
+}

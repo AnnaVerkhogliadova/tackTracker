@@ -11,4 +11,5 @@ type ITasks interface {
 	Get(ctx context.Context, taskId uint64) (*model.Task, error)
 	Delete(ctx context.Context, taskId uint64) error
 	GetList(ctx context.Context, status *uint64) ([]*model.Task, error)
+	CreateSubTask(ctx context.Context, subTask *model.SubTask) (*model.SubTask, error)
 }

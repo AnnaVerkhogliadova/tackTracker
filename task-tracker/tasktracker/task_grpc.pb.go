@@ -28,6 +28,7 @@ type TaskServiceClient interface {
 	GetTasks(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error)
 	DeleteTask(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetListTasks(ctx context.Context, in *GetListRequest, opts ...grpc.CallOption) (*GetListResponse, error)
+	AddSubTusk(ctx context.Context, in *AddSubTuskRequest, opts ...grpc.CallOption) (*AddSubTuskResponse, error)
 }
 
 type taskServiceClient struct {
@@ -83,6 +84,15 @@ func (c *taskServiceClient) GetListTasks(ctx context.Context, in *GetListRequest
 	return out, nil
 }
 
+func (c *taskServiceClient) AddSubTusk(ctx context.Context, in *AddSubTuskRequest, opts ...grpc.CallOption) (*AddSubTuskResponse, error) {
+	out := new(AddSubTuskResponse)
+	err := c.cc.Invoke(ctx, "/tasktracker.TaskService/AddSubTusk", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TaskServiceServer is the server API for TaskService service.
 // All implementations must embed UnimplementedTaskServiceServer
 // for forward compatibility
@@ -92,6 +102,7 @@ type TaskServiceServer interface {
 	GetTasks(context.Context, *GetRequest) (*GetResponse, error)
 	DeleteTask(context.Context, *DeleteRequest) (*emptypb.Empty, error)
 	GetListTasks(context.Context, *GetListRequest) (*GetListResponse, error)
+	AddSubTusk(context.Context, *AddSubTuskRequest) (*AddSubTuskResponse, error)
 	mustEmbedUnimplementedTaskServiceServer()
 }
 
@@ -113,6 +124,9 @@ func (UnimplementedTaskServiceServer) DeleteTask(context.Context, *DeleteRequest
 }
 func (UnimplementedTaskServiceServer) GetListTasks(context.Context, *GetListRequest) (*GetListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetListTasks not implemented")
+}
+func (UnimplementedTaskServiceServer) AddSubTusk(context.Context, *AddSubTuskRequest) (*AddSubTuskResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddSubTusk not implemented")
 }
 func (UnimplementedTaskServiceServer) mustEmbedUnimplementedTaskServiceServer() {}
 
@@ -217,6 +231,24 @@ func _TaskService_GetListTasks_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TaskService_AddSubTusk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddSubTuskRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TaskServiceServer).AddSubTusk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/tasktracker.TaskService/AddSubTusk",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TaskServiceServer).AddSubTusk(ctx, req.(*AddSubTuskRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TaskService_ServiceDesc is the grpc.ServiceDesc for TaskService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -243,6 +275,10 @@ var TaskService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetListTasks",
 			Handler:    _TaskService_GetListTasks_Handler,
+		},
+		{
+			MethodName: "AddSubTusk",
+			Handler:    _TaskService_AddSubTusk_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

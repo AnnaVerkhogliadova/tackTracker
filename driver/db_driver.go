@@ -137,3 +137,50 @@ func (d *dbDriver) GetList(ctx context.Context, status *uint64) ([]*model.Task, 
 
 	return tasks, nil
 }
+
+func (d *dbDriver) CreateSubTask(ctx context.Context, subTask *model.SubTask) (*model.SubTask, error) {
+	tx, err := d.rwdb.BeginTx(ctx, pgx.TxOptions{})
+	if err != nil {
+		return nil, fmt.Errorf("error creating task: %w", err)
+	}
+
+	var exists bool
+	err = tx.QueryRow(ctx, queryExistTaskId, subTask.TaskID).Scan(&exists)
+	if err != nil {
+		return nil, nil
+	}
+
+	if !exists {
+		tx.Rollback(ctx)
+		return nil, errors.NewErrTaskNotFound(subTask.TaskID)
+	}
+
+	var subTaskId uint64
+	err = tx.QueryRow(ctx, queryCreateSubTask,
+		subTask.TaskID,
+		subTask.Title,
+		subTask.Description,
+		subTask.Status,
+	).Scan(&subTaskId)
+
+	subTask = &model.SubTask{
+		ID:          subTaskId,
+		TaskID:      subTask.TaskID,
+		Title:       subTask.Title,
+		Description: subTask.Description,
+		Status:      subTask.Status,
+		CreatedAt:   subTask.CreatedAt}
+
+	if err != nil {
+		zerolog.Ctx(ctx).Error().Err(err).Msg("error executing query")
+		tx.Rollback(ctx)
+		return nil, fmt.Errorf("error creating task in db: %w", err)
+	}
+
+	if err := tx.Commit(ctx); err != nil {
+		tx.Rollback(ctx)
+		return nil, fmt.Errorf("error committing transaction: %w", err)
+	}
+
+	return subTask, nil
+}

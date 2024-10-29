@@ -32,4 +32,18 @@ const (
 	WHERE
 		status = coalesce($1, status) 
 `
+
+	queryCreateSubTask = `
+	INSERT 
+	INTO tasks.sub_tasks
+	    (task_id, title, description, status)
+	VALUES 
+	    ($1, $2, $3, $4)
+	returning sub_task_id;`
+
+	queryExistTaskId = `
+	select exists(
+    select 1 from tasks.tasks where tasks.task_id = $1
+           )
+`
 )

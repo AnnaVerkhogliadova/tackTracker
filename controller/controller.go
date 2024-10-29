@@ -83,3 +83,14 @@ func (t taskController) GetList(ctx context.Context, status *uint64) ([]*model.T
 	log.Info().Msg("GetList result")
 	return tasks, nil
 }
+
+func (t taskController) CreateSubTask(ctx context.Context, task *model.SubTask) (uint64, error) {
+	createdSubTask, err := t.taskDriver.CreateSubTask(ctx, task)
+	if err != nil {
+		return 0, fmt.Errorf("error creating task: %w", err)
+	}
+
+	logger := log.With().Object("task", createdSubTask).Logger()
+	logger.Info().Msg("Create result")
+	return createdSubTask.ID, nil
+}
