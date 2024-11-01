@@ -48,7 +48,7 @@ func (h *Handler) SetStatus(ctx context.Context, req *pb.SetStatusRequest) (*emp
 	return &emptypb.Empty{}, nil
 }
 
-func (h *Handler) GetTasks(ctx context.Context, req *pb.GetRequest) (*pb.GetResponse, error) {
+func (h *Handler) GetTask(ctx context.Context, req *pb.GetRequest) (*pb.GetResponse, error) {
 	task, err := h.Controller.Get(ctx, req.TaskId)
 
 	if err != nil {
@@ -65,12 +65,43 @@ func (h *Handler) GetTasks(ctx context.Context, req *pb.GetRequest) (*pb.GetResp
 		createdDate = timestamppb.New(task.CreatedAt)
 	}
 
+	subTasks := make(
+		[]*pb.SubTaskElement,
+		0,
+		len(task.SubTasks),
+	)
+
+	for _, tasks := range task.SubTasks {
+
+		var status pb.TaskStatus
+		if tasks.Status != 0 {
+			status = pb.TaskStatus(tasks.Status)
+		}
+
+		var createdDate *timestamppb.Timestamp
+		if &tasks.CreatedAt != nil {
+			createdDate = timestamppb.New(tasks.CreatedAt)
+		}
+
+		subTasks = append(
+			subTasks,
+			&pb.SubTaskElement{
+				SubTaskId:   tasks.ID,
+				Title:       tasks.Title,
+				Description: tasks.Description,
+				Status:      status,
+				CreateDate:  createdDate,
+			},
+		)
+	}
+
 	pbTask := pb.Task{
 		TaskId:      task.ID,
 		Title:       task.Title,
 		Status:      status,
 		Description: task.Description,
 		CreateDate:  createdDate,
+		SubTasks:    subTasks,
 	}
 
 	return &pb.GetResponse{
@@ -114,12 +145,43 @@ func (h *Handler) GetListTasks(ctx context.Context, req *pb.GetListRequest) (*pb
 			statusReq = pb.TaskStatus(task.Status)
 		}
 
+		subTasks := make(
+			[]*pb.SubTaskElement,
+			0,
+			len(task.SubTasks),
+		)
+
+		for _, tasks := range task.SubTasks {
+
+			var status pb.TaskStatus
+			if tasks.Status != 0 {
+				status = pb.TaskStatus(tasks.Status)
+			}
+
+			var createdDate *timestamppb.Timestamp
+			if &tasks.CreatedAt != nil {
+				createdDate = timestamppb.New(tasks.CreatedAt)
+			}
+
+			subTasks = append(
+				subTasks,
+				&pb.SubTaskElement{
+					SubTaskId:   tasks.ID,
+					Title:       tasks.Title,
+					Description: tasks.Description,
+					Status:      status,
+					CreateDate:  createdDate,
+				},
+			)
+		}
+
 		result[i] = &pb.Task{
 			TaskId:      task.ID,
 			Title:       task.Title,
 			Status:      statusReq,
 			Description: task.Description,
 			CreateDate:  createdDate,
+			SubTasks:    subTasks,
 		}
 	}
 

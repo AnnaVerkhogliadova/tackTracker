@@ -6,16 +6,25 @@ import (
 )
 
 type Task struct {
-	ID          uint64    `db:"task_id"`
+	ID          uint64           `db:"task_id"`
+	Title       string           `db:"title"`
+	Description string           `db:"description"`
+	Status      uint64           `db:"status"`
+	CreatedAt   time.Time        `db:"create_date"`
+	SubTasks    []SubTaskElement `db:"sub_tasks"`
+}
+
+type SubTask struct {
+	TaskID      uint64    `db:"task_id"`
+	ID          uint64    `db:"sub_task_id"`
 	Title       string    `db:"title"`
 	Description string    `db:"description"`
 	Status      uint64    `db:"status"`
 	CreatedAt   time.Time `db:"create_date"`
 }
 
-type SubTask struct {
-	TaskID      uint64    `db:"task_id"`
-	ID          uint64    `db:"sub_task_id"`
+type SubTaskElement struct {
+	ID          uint64    `json:"sub_task_id"`
 	Title       string    `db:"title"`
 	Description string    `db:"description"`
 	Status      uint64    `db:"status"`

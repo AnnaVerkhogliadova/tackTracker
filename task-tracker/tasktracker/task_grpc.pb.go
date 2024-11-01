@@ -25,7 +25,7 @@ const _ = grpc.SupportPackageIsVersion7
 type TaskServiceClient interface {
 	CreateTask(ctx context.Context, in *CreateTaskRequest, opts ...grpc.CallOption) (*CreateTaskResponse, error)
 	SetStatus(ctx context.Context, in *SetStatusRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	GetTasks(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error)
+	GetTask(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error)
 	DeleteTask(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetListTasks(ctx context.Context, in *GetListRequest, opts ...grpc.CallOption) (*GetListResponse, error)
 	AddSubTusk(ctx context.Context, in *AddSubTuskRequest, opts ...grpc.CallOption) (*AddSubTuskResponse, error)
@@ -57,9 +57,9 @@ func (c *taskServiceClient) SetStatus(ctx context.Context, in *SetStatusRequest,
 	return out, nil
 }
 
-func (c *taskServiceClient) GetTasks(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error) {
+func (c *taskServiceClient) GetTask(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error) {
 	out := new(GetResponse)
-	err := c.cc.Invoke(ctx, "/tasktracker.TaskService/GetTasks", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/tasktracker.TaskService/GetTask", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -99,7 +99,7 @@ func (c *taskServiceClient) AddSubTusk(ctx context.Context, in *AddSubTuskReques
 type TaskServiceServer interface {
 	CreateTask(context.Context, *CreateTaskRequest) (*CreateTaskResponse, error)
 	SetStatus(context.Context, *SetStatusRequest) (*emptypb.Empty, error)
-	GetTasks(context.Context, *GetRequest) (*GetResponse, error)
+	GetTask(context.Context, *GetRequest) (*GetResponse, error)
 	DeleteTask(context.Context, *DeleteRequest) (*emptypb.Empty, error)
 	GetListTasks(context.Context, *GetListRequest) (*GetListResponse, error)
 	AddSubTusk(context.Context, *AddSubTuskRequest) (*AddSubTuskResponse, error)
@@ -116,8 +116,8 @@ func (UnimplementedTaskServiceServer) CreateTask(context.Context, *CreateTaskReq
 func (UnimplementedTaskServiceServer) SetStatus(context.Context, *SetStatusRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetStatus not implemented")
 }
-func (UnimplementedTaskServiceServer) GetTasks(context.Context, *GetRequest) (*GetResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetTasks not implemented")
+func (UnimplementedTaskServiceServer) GetTask(context.Context, *GetRequest) (*GetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTask not implemented")
 }
 func (UnimplementedTaskServiceServer) DeleteTask(context.Context, *DeleteRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteTask not implemented")
@@ -177,20 +177,20 @@ func _TaskService_SetStatus_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TaskService_GetTasks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _TaskService_GetTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TaskServiceServer).GetTasks(ctx, in)
+		return srv.(TaskServiceServer).GetTask(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/tasktracker.TaskService/GetTasks",
+		FullMethod: "/tasktracker.TaskService/GetTask",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TaskServiceServer).GetTasks(ctx, req.(*GetRequest))
+		return srv.(TaskServiceServer).GetTask(ctx, req.(*GetRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -265,8 +265,8 @@ var TaskService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TaskService_SetStatus_Handler,
 		},
 		{
-			MethodName: "GetTasks",
-			Handler:    _TaskService_GetTasks_Handler,
+			MethodName: "GetTask",
+			Handler:    _TaskService_GetTask_Handler,
 		},
 		{
 			MethodName: "DeleteTask",

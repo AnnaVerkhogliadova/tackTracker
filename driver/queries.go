@@ -10,12 +10,15 @@ const (
 	returning task_id;`
 
 	queryGet = `
-	SELECT 
-    tasks.task_id, tasks.title, tasks.description, tasks.status, tasks.create_date FROM tasks.tasks
-	WHERE task_id = $1;
+	SELECT
+    	t.task_id, t.title, t.description, t.status, t.create_date,
+    	COALESCE(json_agg(to_jsonb(st) - '{task_id}'::text[]) FILTER (WHERE st.sub_task_id IS NOT NULL), '[]'::json) AS sub_tasks
+	FROM tasks.tasks t
+		LEFT JOIN tasks.sub_tasks st ON t.task_id = st.task_id
+	WHERE t.task_id = $1
+	GROUP BY t.task_id;
 `
 	querySetStatus = `
-
 	UPDATE tasks.tasks
 		SET status = $2 WHERE task_id = $1
 `
@@ -27,10 +30,13 @@ const (
 		task_id = $1
 `
 	queryGetList = `
-	SELECT 
-		 tasks.task_id, tasks.title, tasks.description, tasks.status, tasks.create_date FROM tasks.tasks
-	WHERE
-		status = coalesce($1, status) 
+	SELECT
+    	t.task_id, t.title, t.description, t.status, t.create_date,
+    	COALESCE(json_agg(to_jsonb(st) - '{task_id}'::text[]) FILTER (WHERE st.sub_task_id IS NOT NULL), '[]'::json) AS sub_tasks
+	FROM tasks.tasks t
+		LEFT JOIN tasks.sub_tasks st ON t.task_id = st.task_id
+	WHERE t.status = coalesce($1, t.status)
+	GROUP BY t.task_id;
 `
 
 	queryCreateSubTask = `
@@ -42,8 +48,7 @@ const (
 	returning sub_task_id;`
 
 	queryExistTaskId = `
-	select exists(
-    select 1 from tasks.tasks where tasks.task_id = $1
-           )
+	SELECT exists(
+    	SELECT 1 FROM tasks.tasks WHERE tasks.task_id = $1)
 `
 )
