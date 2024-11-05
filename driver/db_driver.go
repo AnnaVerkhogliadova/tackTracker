@@ -2,12 +2,15 @@ package driver
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/rs/zerolog"
-	"taskTracker/errors"
+	"strings"
+	internal_error "taskTracker/errors"
 	"taskTracker/model"
 )
 
@@ -37,6 +40,19 @@ func (d *dbDriver) Create(ctx context.Context, task *model.Task) (*model.Task, e
 	err = tx.QueryRow(ctx, queryCreateTask,
 		task.Title, task.Description, task.Status,
 	).Scan(&taskId)
+
+	if err != nil {
+		var pgErr *pgconn.PgError
+		if errors.As(err, &pgErr) {
+			if strings.Contains(pgErr.Detail, "application_name") && pgErr.Code == "23505" {
+				return nil, internal_error.NewErrTitleTaskAlreadyExist(task.Title)
+			} else if pgErr.Code == "23505" {
+				return nil, internal_error.NewErrTitleTaskAlreadyExist(task.Title)
+			}
+		}
+
+		return nil, fmt.Errorf("error application creating: %w", err)
+	}
 
 	task = &model.Task{
 		ID:          taskId,
@@ -94,7 +110,7 @@ func (d *dbDriver) Get(ctx context.Context, taskId uint64) (*model.Task, error) 
 	}
 
 	if len(results) == 0 {
-		return nil, errors.NewErrTaskNotFound(taskId)
+		return nil, internal_error.NewErrTaskNotFound(taskId)
 	}
 
 	return &results[0], nil
@@ -152,7 +168,7 @@ func (d *dbDriver) CreateSubTask(ctx context.Context, subTask *model.SubTask) (*
 
 	if !exists {
 		tx.Rollback(ctx)
-		return nil, errors.NewErrTaskNotFound(subTask.TaskID)
+		return nil, internal_error.NewErrTaskNotFound(subTask.TaskID)
 	}
 
 	var subTaskId uint64
@@ -184,3 +200,17 @@ func (d *dbDriver) CreateSubTask(ctx context.Context, subTask *model.SubTask) (*
 
 	return subTask, nil
 }
+
+//func WithPGTransaction(ctx context.Context, db *pgxpool.Pool, fn func(tx pgx.Tx) error) error {
+//	tx, err := db.Begin(ctx)
+//	if err != nil {
+//		return err
+//	}
+//
+//	if err := fn(tx); err != nil {
+//		_ = tx.Rollback(ctx)
+//		return err
+//	}
+//
+//	return tx.Commit(ctx)
+//}

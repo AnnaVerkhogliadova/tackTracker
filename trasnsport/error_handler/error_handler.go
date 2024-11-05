@@ -19,8 +19,22 @@ func handleTaskNotFound(err error) *status.Status {
 	return nil
 }
 
+func handleTitleTaskAlreadyExist(err error) *status.Status {
+	var errTitleTaskAlreadyExist internal_error.ErrTitleTaskAlreadyExist
+
+	if errors.As(err, &errTitleTaskAlreadyExist) {
+		return status.New(codes.InvalidArgument, errTitleTaskAlreadyExist.Error())
+	}
+
+	return nil
+}
+
 func HandleError(err error) error {
 	if handledErrStatus := handleTaskNotFound(err); handledErrStatus != nil {
+		return handledErrStatus.Err()
+	}
+
+	if handledErrStatus := handleTitleTaskAlreadyExist(err); handledErrStatus != nil {
 		return handledErrStatus.Err()
 	}
 

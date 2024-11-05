@@ -85,3 +85,11 @@ enum TaskStatus {
   STATUS_ACTIVE = 2;
   STATUS_NOT_ACTIVE = 3;
 }
+
+enum ErrorCode {
+  ERROR_CODE_UNKNOWN = 0;
+}
+
+message ErrorDetails {
+  ErrorCode code = 1;
+}

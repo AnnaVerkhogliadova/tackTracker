@@ -24,7 +24,7 @@ func (h *Handler) CreateTask(ctx context.Context, req *pb.CreateTaskRequest) (*p
 
 	taskId, err := h.Controller.Create(ctx, task)
 	if err != nil {
-		return nil, err
+		return nil, error_handler.HandleError(err)
 	}
 
 	return &pb.CreateTaskResponse{

@@ -4,13 +4,18 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fec1ad29-8d2c-4a01-9503-ed1d178327e5" name="Changes" comment="add method CreateSubTask">
+    <list default="true" id="fec1ad29-8d2c-4a01-9503-ed1d178327e5" name="Changes" comment="add subTasks in Get/GetList">
+      <change afterPath="$PROJECT_DIR$/errors/err_title_task_already_exist.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helper/test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trasnsport/tests/api_create_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trasnsport/tests/testsuite_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/driver/queries.go" beforeDir="false" afterPath="$PROJECT_DIR$/driver/queries.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/model.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/model.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/driver/db_driver.go" beforeDir="false" afterPath="$PROJECT_DIR$/driver/db_driver.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/task-tracker/tasktracker/task.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/task-tracker/tasktracker/task.pb.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/task-tracker/tasktracker/task.proto" beforeDir="false" afterPath="$PROJECT_DIR$/task-tracker/tasktracker/task.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-tracker/tasktracker/task_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/task-tracker/tasktracker/task_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trasnsport/error_handler/error_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/trasnsport/error_handler/error_handler.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trasnsport/task/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/trasnsport/task/api.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,7 +65,7 @@
       <recent name="$PROJECT_DIR$/model" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Test.go test taskTracker/trasnsport/tests">
     <configuration name="go build taskTracker (2)" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="taskTracker" />
       <working_directory value="$PROJECT_DIR$" />
@@ -70,8 +75,20 @@
       <filePath value="$PROJECT_DIR$/main.go" />
       <method v="2" />
     </configuration>
+    <configuration name="go test taskTracker/trasnsport/tests" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="taskTracker" />
+      <working_directory value="$PROJECT_DIR$/trasnsport/tests" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="taskTracker/trasnsport/tests" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.go test taskTracker/trasnsport/tests" />
         <item itemvalue="Go Build.go build taskTracker (2)" />
       </list>
     </recent_temporary>
@@ -97,7 +114,8 @@
     <MESSAGE value="add SetStatus" />
     <MESSAGE value="add logs" />
     <MESSAGE value="add method CreateSubTask" />
-    <option name="LAST_COMMIT_MESSAGE" value="add method CreateSubTask" />
+    <MESSAGE value="add subTasks in Get/GetList" />
+    <option name="LAST_COMMIT_MESSAGE" value="add subTasks in Get/GetList" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
@@ -112,7 +130,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/driver/db_driver.go</url>
-          <line>126</line>
+          <line>142</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
@@ -122,7 +140,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/driver/db_driver.go</url>
-          <line>158</line>
+          <line>174</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
@@ -132,12 +150,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/driver/db_driver.go</url>
-          <line>146</line>
+          <line>162</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/driver/db_driver.go</url>
-          <line>122</line>
+          <line>138</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
@@ -147,10 +165,40 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/driver/db_driver.go</url>
-          <line>81</line>
+          <line>97</line>
           <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/driver/db_driver.go</url>
+          <line>43</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/trasnsport/error_handler/error_handler.go</url>
+          <line>14</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/trasnsport/error_handler/error_handler.go</url>
+          <line>12</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/trasnsport/error_handler/error_handler.go</url>
+          <line>32</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/trasnsport/task/api.go</url>
+          <line>53</line>
+          <option name="timeStamp" value="47" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="GoApplicationRunConfiguration">
+        <watch expression="taskId" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
