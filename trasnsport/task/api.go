@@ -55,7 +55,7 @@ func (h *Handler) SetSubTaskStatus(ctx context.Context, req *pb.SetSubTaskStatus
 		status = &ft
 	}
 
-	err := h.Controller.SetStatus(ctx, req.SubTaskId, status)
+	err := h.Controller.SetSubTaskStatus(ctx, req.SubTaskId, status)
 
 	if err != nil {
 		return nil, err

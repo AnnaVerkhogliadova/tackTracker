@@ -45,7 +45,7 @@ func (t taskController) SetStatus(ctx context.Context, taskId uint64, status *ui
 }
 
 func (t taskController) SetSubTaskStatus(ctx context.Context, subTaskId uint64, status *uint64) error {
-	err := t.taskDriver.SetStatus(
+	err := t.taskDriver.SetSubTaskStatus(
 		ctx,
 		subTaskId,
 		status)

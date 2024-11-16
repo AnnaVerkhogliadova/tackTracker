@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fec1ad29-8d2c-4a01-9503-ed1d178327e5" name="Changes" comment="add unique title">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/i_task.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/i_task.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/driver/db_driver.go" beforeDir="false" afterPath="$PROJECT_DIR$/driver/db_driver.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/driver/queries.go" beforeDir="false" afterPath="$PROJECT_DIR$/driver/queries.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-tracker/tasktracker/task.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/task-tracker/tasktracker/task.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-tracker/tasktracker/task.proto" beforeDir="false" afterPath="$PROJECT_DIR$/task-tracker/tasktracker/task.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-tracker/tasktracker/task_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/task-tracker/tasktracker/task_grpc.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trasnsport/task/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/trasnsport/task/api.go" afterDir="false" />
-    </list>
+    <list default="true" id="fec1ad29-8d2c-4a01-9503-ed1d178327e5" name="Changes" comment="add unique title" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,8 +18,34 @@
     </option>
   </component>
   <component name="GOROOT" url="file:///usr/local/go" />
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dc02e90898e1f7ed41cb6fab7506cdc3b0cc699e" />
+      </map>
+    </option>
+  </component>
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="5" />
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1731782194" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -190,11 +206,22 @@
           <line>69</line>
           <option name="timeStamp" value="47" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/driver/db_driver.go</url>
+          <line>92</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/driver/db_driver.go</url>
+          <line>78</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="GoApplicationRunConfiguration">
         <watch expression="taskId" />
+        <watch expression="*(*&quot;string&quot;)(1374392894232)" />
       </configuration>
     </watches-manager>
   </component>
