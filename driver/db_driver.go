@@ -89,6 +89,20 @@ func (d *dbDriver) SetStatus(ctx context.Context, taskId uint64, status *uint64)
 	return nil
 }
 
+func (d *dbDriver) SetSubTaskStatus(ctx context.Context, subTaskId uint64, status *uint64) error {
+	row, err := d.rwdb.Query(
+		ctx,
+		querySubTaskSetStatus,
+		subTaskId, status)
+
+	defer row.Close()
+	if err != nil {
+		return fmt.Errorf("error set sub task status: %w", err)
+	}
+
+	return nil
+}
+
 func (d *dbDriver) Get(ctx context.Context, taskId uint64) (*model.Task, error) {
 	tx, err := d.rwdb.BeginTx(ctx, pgx.TxOptions{})
 	if err != nil {

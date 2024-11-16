@@ -25,6 +25,7 @@ const _ = grpc.SupportPackageIsVersion7
 type TaskServiceClient interface {
 	CreateTask(ctx context.Context, in *CreateTaskRequest, opts ...grpc.CallOption) (*CreateTaskResponse, error)
 	SetStatus(ctx context.Context, in *SetStatusRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	SetSubTaskStatus(ctx context.Context, in *SetSubTaskStatusRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetTask(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error)
 	DeleteTask(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetListTasks(ctx context.Context, in *GetListRequest, opts ...grpc.CallOption) (*GetListResponse, error)
@@ -51,6 +52,15 @@ func (c *taskServiceClient) CreateTask(ctx context.Context, in *CreateTaskReques
 func (c *taskServiceClient) SetStatus(ctx context.Context, in *SetStatusRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/tasktracker.TaskService/SetStatus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *taskServiceClient) SetSubTaskStatus(ctx context.Context, in *SetSubTaskStatusRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/tasktracker.TaskService/SetSubTaskStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -99,6 +109,7 @@ func (c *taskServiceClient) AddSubTusk(ctx context.Context, in *AddSubTuskReques
 type TaskServiceServer interface {
 	CreateTask(context.Context, *CreateTaskRequest) (*CreateTaskResponse, error)
 	SetStatus(context.Context, *SetStatusRequest) (*emptypb.Empty, error)
+	SetSubTaskStatus(context.Context, *SetSubTaskStatusRequest) (*emptypb.Empty, error)
 	GetTask(context.Context, *GetRequest) (*GetResponse, error)
 	DeleteTask(context.Context, *DeleteRequest) (*emptypb.Empty, error)
 	GetListTasks(context.Context, *GetListRequest) (*GetListResponse, error)
@@ -115,6 +126,9 @@ func (UnimplementedTaskServiceServer) CreateTask(context.Context, *CreateTaskReq
 }
 func (UnimplementedTaskServiceServer) SetStatus(context.Context, *SetStatusRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetStatus not implemented")
+}
+func (UnimplementedTaskServiceServer) SetSubTaskStatus(context.Context, *SetSubTaskStatusRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetSubTaskStatus not implemented")
 }
 func (UnimplementedTaskServiceServer) GetTask(context.Context, *GetRequest) (*GetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTask not implemented")
@@ -173,6 +187,24 @@ func _TaskService_SetStatus_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TaskServiceServer).SetStatus(ctx, req.(*SetStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TaskService_SetSubTaskStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetSubTaskStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TaskServiceServer).SetSubTaskStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/tasktracker.TaskService/SetSubTaskStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TaskServiceServer).SetSubTaskStatus(ctx, req.(*SetSubTaskStatusRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -263,6 +295,10 @@ var TaskService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetStatus",
 			Handler:    _TaskService_SetStatus_Handler,
+		},
+		{
+			MethodName: "SetSubTaskStatus",
+			Handler:    _TaskService_SetSubTaskStatus_Handler,
 		},
 		{
 			MethodName: "GetTask",

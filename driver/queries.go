@@ -22,6 +22,10 @@ const (
 	UPDATE tasks.tasks
 		SET status = $2 WHERE task_id = $1
 `
+	querySubTaskSetStatus = `
+	UPDATE tasks.sub_tasks
+		SET status = $2 WHERE sub_task_id = $1
+`
 
 	queryDelete = `
 	DELETE 

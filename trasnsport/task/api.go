@@ -48,6 +48,22 @@ func (h *Handler) SetStatus(ctx context.Context, req *pb.SetStatusRequest) (*emp
 	return &emptypb.Empty{}, nil
 }
 
+func (h *Handler) SetSubTaskStatus(ctx context.Context, req *pb.SetSubTaskStatusRequest) (*emptypb.Empty, error) {
+	var status *uint64
+	if req.Status != 0 {
+		ft := uint64(req.Status.Number())
+		status = &ft
+	}
+
+	err := h.Controller.SetStatus(ctx, req.SubTaskId, status)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &emptypb.Empty{}, nil
+}
+
 func (h *Handler) GetTask(ctx context.Context, req *pb.GetRequest) (*pb.GetResponse, error) {
 	task, err := h.Controller.Get(ctx, req.TaskId)
 

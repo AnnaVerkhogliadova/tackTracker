@@ -44,6 +44,21 @@ func (t taskController) SetStatus(ctx context.Context, taskId uint64, status *ui
 	return nil
 }
 
+func (t taskController) SetSubTaskStatus(ctx context.Context, subTaskId uint64, status *uint64) error {
+	err := t.taskDriver.SetStatus(
+		ctx,
+		subTaskId,
+		status)
+
+	if err != nil {
+		return err
+	}
+
+	logger := log.With().Int("status", int(*status)).Logger()
+	logger.Info().Msg("SetSubTaskStatus result")
+	return nil
+}
+
 func (t taskController) Get(ctx context.Context, taskId uint64) (*model.Task, error) {
 	task, err := t.taskDriver.Get(
 		ctx,

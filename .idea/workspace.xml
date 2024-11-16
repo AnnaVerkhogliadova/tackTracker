@@ -4,18 +4,15 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fec1ad29-8d2c-4a01-9503-ed1d178327e5" name="Changes" comment="add subTasks in Get/GetList">
-      <change afterPath="$PROJECT_DIR$/errors/err_title_task_already_exist.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helper/test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/trasnsport/tests/api_create_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/trasnsport/tests/testsuite_test.go" afterDir="false" />
+    <list default="true" id="fec1ad29-8d2c-4a01-9503-ed1d178327e5" name="Changes" comment="add unique title">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/i_task.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/i_task.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/driver/db_driver.go" beforeDir="false" afterPath="$PROJECT_DIR$/driver/db_driver.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/driver/queries.go" beforeDir="false" afterPath="$PROJECT_DIR$/driver/queries.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/task-tracker/tasktracker/task.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/task-tracker/tasktracker/task.pb.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/task-tracker/tasktracker/task.proto" beforeDir="false" afterPath="$PROJECT_DIR$/task-tracker/tasktracker/task.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trasnsport/error_handler/error_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/trasnsport/error_handler/error_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task-tracker/tasktracker/task_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/task-tracker/tasktracker/task_grpc.pb.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trasnsport/task/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/trasnsport/task/api.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +62,7 @@
       <recent name="$PROJECT_DIR$/model" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.go test taskTracker/trasnsport/tests">
+  <component name="RunManager" selected="Go Build.go build taskTracker (2)">
     <configuration name="go build taskTracker (2)" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="taskTracker" />
       <working_directory value="$PROJECT_DIR$" />
@@ -88,8 +85,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.go test taskTracker/trasnsport/tests" />
         <item itemvalue="Go Build.go build taskTracker (2)" />
+        <item itemvalue="Go Test.go test taskTracker/trasnsport/tests" />
       </list>
     </recent_temporary>
   </component>
@@ -130,7 +127,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/driver/db_driver.go</url>
-          <line>142</line>
+          <line>156</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
@@ -140,7 +137,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/driver/db_driver.go</url>
-          <line>174</line>
+          <line>188</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
@@ -150,22 +147,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/driver/db_driver.go</url>
-          <line>162</line>
+          <line>176</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/driver/db_driver.go</url>
-          <line>138</line>
+          <line>152</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/controller/controller.go</url>
-          <line>51</line>
+          <line>66</line>
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/driver/db_driver.go</url>
-          <line>97</line>
+          <line>111</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
@@ -190,7 +187,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/trasnsport/task/api.go</url>
-          <line>53</line>
+          <line>69</line>
           <option name="timeStamp" value="47" />
         </line-breakpoint>
       </breakpoints>
