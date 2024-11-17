@@ -135,6 +135,16 @@ func (h *Handler) DeleteTask(ctx context.Context, req *pb.DeleteRequest) (*empty
 	return &emptypb.Empty{}, nil
 }
 
+func (h *Handler) DeleteSubTask(ctx context.Context, req *pb.DeleteSubTaskRequest) (*emptypb.Empty, error) {
+	err := h.Controller.DeleteSubTask(ctx, req.SubTaskId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &emptypb.Empty{}, nil
+}
+
 func (h *Handler) GetListTasks(ctx context.Context, req *pb.GetListRequest) (*pb.GetListResponse, error) {
 	var status *uint64
 	if req.Status != nil {

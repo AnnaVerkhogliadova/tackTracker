@@ -28,6 +28,7 @@ type TaskServiceClient interface {
 	SetSubTaskStatus(ctx context.Context, in *SetSubTaskStatusRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetTask(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error)
 	DeleteTask(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DeleteSubTask(ctx context.Context, in *DeleteSubTaskRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetListTasks(ctx context.Context, in *GetListRequest, opts ...grpc.CallOption) (*GetListResponse, error)
 	AddSubTusk(ctx context.Context, in *AddSubTuskRequest, opts ...grpc.CallOption) (*AddSubTuskResponse, error)
 }
@@ -85,6 +86,15 @@ func (c *taskServiceClient) DeleteTask(ctx context.Context, in *DeleteRequest, o
 	return out, nil
 }
 
+func (c *taskServiceClient) DeleteSubTask(ctx context.Context, in *DeleteSubTaskRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/tasktracker.TaskService/DeleteSubTask", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *taskServiceClient) GetListTasks(ctx context.Context, in *GetListRequest, opts ...grpc.CallOption) (*GetListResponse, error) {
 	out := new(GetListResponse)
 	err := c.cc.Invoke(ctx, "/tasktracker.TaskService/GetListTasks", in, out, opts...)
@@ -112,6 +122,7 @@ type TaskServiceServer interface {
 	SetSubTaskStatus(context.Context, *SetSubTaskStatusRequest) (*emptypb.Empty, error)
 	GetTask(context.Context, *GetRequest) (*GetResponse, error)
 	DeleteTask(context.Context, *DeleteRequest) (*emptypb.Empty, error)
+	DeleteSubTask(context.Context, *DeleteSubTaskRequest) (*emptypb.Empty, error)
 	GetListTasks(context.Context, *GetListRequest) (*GetListResponse, error)
 	AddSubTusk(context.Context, *AddSubTuskRequest) (*AddSubTuskResponse, error)
 	mustEmbedUnimplementedTaskServiceServer()
@@ -135,6 +146,9 @@ func (UnimplementedTaskServiceServer) GetTask(context.Context, *GetRequest) (*Ge
 }
 func (UnimplementedTaskServiceServer) DeleteTask(context.Context, *DeleteRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteTask not implemented")
+}
+func (UnimplementedTaskServiceServer) DeleteSubTask(context.Context, *DeleteSubTaskRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteSubTask not implemented")
 }
 func (UnimplementedTaskServiceServer) GetListTasks(context.Context, *GetListRequest) (*GetListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetListTasks not implemented")
@@ -245,6 +259,24 @@ func _TaskService_DeleteTask_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TaskService_DeleteSubTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteSubTaskRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TaskServiceServer).DeleteSubTask(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/tasktracker.TaskService/DeleteSubTask",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TaskServiceServer).DeleteSubTask(ctx, req.(*DeleteSubTaskRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _TaskService_GetListTasks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetListRequest)
 	if err := dec(in); err != nil {
@@ -307,6 +339,10 @@ var TaskService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteTask",
 			Handler:    _TaskService_DeleteTask_Handler,
+		},
+		{
+			MethodName: "DeleteSubTask",
+			Handler:    _TaskService_DeleteSubTask_Handler,
 		},
 		{
 			MethodName: "GetListTasks",

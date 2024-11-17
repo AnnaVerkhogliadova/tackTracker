@@ -33,6 +33,12 @@ const (
 	WHERE
 		task_id = $1
 `
+	queryDeleteSubTask = `
+	DELETE 
+		FROM tasks.sub_tasks
+	WHERE
+		sub_task_id = $1
+`
 	queryGetList = `
 	SELECT
     	t.task_id, t.title, t.description, t.status, t.create_date,

@@ -11,6 +11,7 @@ type ITaskController interface {
 	SetSubTaskStatus(ctx context.Context, subTaskId uint64, status *uint64) error
 	Get(ctx context.Context, taskId uint64) (*model.Task, error)
 	Delete(ctx context.Context, taskId uint64) error
+	DeleteSubTask(ctx context.Context, subTaskId uint64) error
 	GetList(ctx context.Context, status *uint64) ([]*model.Task, error)
 	CreateSubTask(ctx context.Context, subTask *model.SubTask) (uint64, error)
 }

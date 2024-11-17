@@ -144,6 +144,20 @@ func (d *dbDriver) Delete(ctx context.Context, taskId uint64) error {
 	return nil
 }
 
+func (d *dbDriver) DeleteSubTask(ctx context.Context, subTaskId uint64) error {
+	row, err := d.rwdb.Query(
+		ctx,
+		queryDeleteSubTask,
+		subTaskId)
+
+	defer row.Close()
+	if err != nil {
+		return fmt.Errorf("error deleting sub task: %w", err)
+	}
+
+	return nil
+}
+
 func (d *dbDriver) GetList(ctx context.Context, status *uint64) ([]*model.Task, error) {
 	row, err := d.rwdb.Query(
 		ctx,

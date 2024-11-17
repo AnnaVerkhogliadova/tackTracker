@@ -86,6 +86,20 @@ func (t taskController) Delete(ctx context.Context, taskId uint64) error {
 	return nil
 }
 
+func (t taskController) DeleteSubTask(ctx context.Context, subTaskId uint64) error {
+	err := t.taskDriver.DeleteSubTask(
+		ctx,
+		subTaskId)
+
+	if err != nil {
+		return err
+	}
+
+	logger := log.With().Int("sub_task_id", int(subTaskId)).Logger()
+	logger.Info().Msg("Delete sub task result")
+	return nil
+}
+
 func (t taskController) GetList(ctx context.Context, status *uint64) ([]*model.Task, error) {
 	tasks, err := t.taskDriver.GetList(
 		ctx,
